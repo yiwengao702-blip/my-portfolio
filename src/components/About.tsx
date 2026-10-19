@@ -64,6 +64,29 @@ export default function About() {
             </svg>
           </a>
 
+          {/* 在线查看简历：新标签页打开 PDF（交给浏览器内置阅读器，不下载） */}
+          <a
+            href="resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group mt-3 flex w-full items-center justify-center gap-2 rounded-2xl border border-ink/15 bg-surface px-5 py-3.5 text-sm font-medium text-ink/80 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary-dark"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-4 w-4"
+              aria-hidden="true"
+            >
+              <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            在线查看简历
+          </a>
+
             {/* 三个关键词标签 */}
             <div className="flex flex-wrap gap-3 mt-8">
               {['全栈开发', 'AI 应用', '工程化交付'].map((t) => (
