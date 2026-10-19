@@ -32,7 +32,7 @@ export default function About() {
 
             {/* 下载简历（醒目卡片） */}
             <a
-              href="/resume.pdf"
+              href="resume.pdf"
               download
               className="group mt-6 flex w-full items-center gap-4 rounded-2xl border border-ink/[0.08] bg-surface px-5 py-4 shadow-[0_2px_8px_rgba(20,20,40,0.04),0_18px_40px_-16px_rgba(20,20,40,0.12)] transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/30"
             >

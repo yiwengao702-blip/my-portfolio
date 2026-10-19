@@ -5,6 +5,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
 export default defineConfig({
+  base: './', // 相对路径，兼容本地预览与 GitHub Pages 子路径（/my-portfolio/）
   plugins: [react()],
   server: {
     port: 5180,        // 开发服务器端口（与既有项目错峰，避免冲突）
