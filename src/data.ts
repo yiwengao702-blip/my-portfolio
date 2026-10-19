@@ -202,7 +202,7 @@ export const projects: Project[] = [
 export const contact = {
   email: 'yiwengao702@gmail.com',
   phone: '15713895583',
-  wechat: '请替换为你的微信号', // ← 换成你的真实微信号
+  wechat: 'HfJGsbfi', // 真实微信号
   github: 'github.com/yiwengao702-blip',
   githubUrl: 'https://github.com/yiwengao702-blip',
   note: '我通常在 24 小时内回复消息。如有紧急事项，请直接电话或邮件联系。',
