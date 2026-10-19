@@ -1,0 +1,213 @@
+/*
+ * D:/WorkBuddy/2026-10-16-10-34-45/my-portfolio/src/index.css
+ * 全局样式：Tailwind 指令 + 品牌基础样式 + 自定义组件类。
+ * 设计语言参考 ikun666.asia（赛博霓虹），结构参考 imoyee.cn（递进式）。
+ */
+
+/* 引入 Google Fonts：Space Grotesk（标题）、DM Sans（正文）。
+   若网络无法访问 Google Fonts，会自动回退到 system-ui。 */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== 基础重置与品牌基调 ===== */
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth; /* 锚点平滑滚动 */
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.6;
+    background-color: #f5f6fa; /* 全站底色（白色主题） */
+    color: #1c1c2e;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Space Grotesk', sans-serif; /* 标题统一用 Space Grotesk */
+    letter-spacing: -0.01em; /* 大标题收紧字距，更精致 */
+    text-wrap: balance; /* 标题均衡换行 */
+  }
+
+  /* 选中态：品牌青 + 淡底，统一交互气质 */
+  ::selection {
+    background: rgba(0, 240, 255, 0.22);
+    color: #1c1c2e;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* 背景柔光：顶部居中的青/紫晕染，给纯黑底增加纵深（置于内容之下） */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(60% 40% at 50% 0%, rgba(112, 0, 255, 0.10), transparent 70%),
+      radial-gradient(40% 30% at 85% 10%, rgba(0, 240, 255, 0.08), transparent 70%);
+  }
+
+  /* 颗粒质感：极淡的噪点叠层，营造高级哑光感（不拦截点击） */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* 统一聚焦描边：键盘可达性，同时保持霓虹精致感 */
+  *:focus-visible {
+    outline: 2px solid #00f0ff;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+/* ===== 自定义组件类 ===== */
+
+/* 科技网格背景：极淡的青色网格线，营造赛博空间感（白底改为淡灰网格） */
+.bg-tech-grid {
+  background-image:
+    linear-gradient(rgba(28, 28, 46, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 28, 46, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* 霓虹发光文字（白底收敛，仅作轻微彩色晕染） */
+.glow-text {
+  text-shadow: 0 0 16px rgba(0, 240, 255, 0.28), 0 0 32px rgba(112, 0, 255, 0.14);
+}
+
+/* 霓虹发光边框（白底收敛） */
+.glow-border {
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.25), inset 0 0 12px rgba(0, 240, 255, 0.06);
+}
+
+/* 科技感卡片：纯白底 + 极细描边 + 分层柔和投影，悬停上浮（白底版） */
+.tech-card {
+  background: #ffffff;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(28, 28, 46, 0.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 2px rgba(20, 20, 40, 0.03),
+    0 12px 32px -18px rgba(20, 20, 40, 0.18);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tech-card:hover {
+  border-color: rgba(0, 240, 255, 0.32);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 2px 6px rgba(20, 20, 40, 0.04),
+    0 26px 60px -24px rgba(20, 20, 40, 0.24),
+    0 0 0 1px rgba(0, 240, 255, 0.06);
+  transform: translateY(-6px);
+}
+
+/* 隐藏滚动条（用于移动端菜单等） */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== 自定义滚动条：细、低对比，与浅底融合（Firefox + WebKit） ===== */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(28, 28, 46, 0.22) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(28, 28, 46, 0.16);
+  border: 3px solid #f5f6fa; /* 用底色做描边，形成"悬浮细条" */
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(28, 28, 46, 0.3);
+}
+
+/* ===== 滚动揭示动效（参考 imoyee 的渐进出现） =====
+   元素初始透明 + 下移，进入视口后通过 .revealed 过渡到可见。 */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 方向变体：让卡片"错位滑入"，强化推进的节奏感 */
+.reveal.from-left:not(.revealed) {
+  transform: translateX(-44px);
+}
+.reveal.from-right:not(.revealed) {
+  transform: translateX(44px);
+}
+
+/* ===== 打印在线简历：只保留简历区，隐藏其它区块与背景光 ==== */
+@media print {
+  body::before,
+  body::after {
+    display: none !important;
+  }
+  main > *:not(#resume) {
+    display: none !important;
+  }
+  #resume {
+    padding: 0 !important;
+    background: #fff !important;
+    border: 0 !important;
+  }
+  #resume article {
+    box-shadow: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* 减少动画偏好：尊重系统设置 */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .animate-float,
+  .animate-pulse-glow {
+    animation: none !important;
+  }
+}
