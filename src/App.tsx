@@ -1,10 +1,9 @@
 // D:/WorkBuddy/2026-10-16-10-34-45/my-portfolio/src/App.tsx
-// 应用根组件：多角色演示登录（AuthProvider）包裹整站。
-// 未登录时展示登录页；登录后按"首页 → 关于 → … → 专属视图 → 联系"顺序组装各区块。
+// 应用根组件：按"首页 → 关于 → 进阶 → 技能 → 经历 → 项目 → 联系"顺序组装各区块。
+// 设计融合 ikun666.asia（赛博霓虹外观）与 imoyee.cn（递进式结构）。
 
 import { useEffect } from 'react';
 
-import { AuthProvider, useAuth } from './auth';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,16 +12,12 @@ import Skills from './components/Skills';
 import Timeline from './components/Timeline';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
-import RoleZone from './components/RoleZone';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
-import Login from './components/Login';
 
-function Portfolio() {
-  const { isAuthed } = useAuth();
-
+export default function App() {
   // 带锚点直接打开（如别人分享的 http://站点/#projects）时，浏览器的原生 hash 滚动
   // 发生在 React 挂载之前——那时目标区块还不存在，滚动落空，页面停在顶部。
   //
@@ -30,7 +25,6 @@ function Portfolio() {
   // 算出来的目标位置是「图片加载前」的坐标（实测跳到 789px，而项目区实际在 4844px）。
   // 所以这里用 ResizeObserver 盯着文档高度，只要还在变化就重新校正，3 秒后停止。
   useEffect(() => {
-    if (!isAuthed) return;
     const id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
     if (!id) return;
 
@@ -51,9 +45,7 @@ function Portfolio() {
       observer.disconnect();
       window.removeEventListener('load', fix);
     };
-  }, [isAuthed]);
-
-  if (!isAuthed) return <Login />;
+  }, []);
 
   return (
     <div className="min-h-screen bg-background text-ink selection:bg-primary/30">
@@ -67,7 +59,6 @@ function Portfolio() {
         <Timeline />
         <Experience />
         <Projects />
-        <RoleZone />
         <Contact />
       </main>
       <Footer />
@@ -76,10 +67,3 @@ function Portfolio() {
   );
 }
 
-export default function App() {
-  return (
-    <AuthProvider>
-      <Portfolio />
-    </AuthProvider>
-  );
-}
