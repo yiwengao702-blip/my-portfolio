@@ -2,9 +2,11 @@
 // 顶部导航：固定定位 + 毛玻璃 + 滚动后加深，移动端折叠为汉堡菜单。
 
 import { useEffect, useState } from 'react';
-import { navLinks, profile } from '../data';
+import { navLinks, profile, roleLabels } from '../data';
+import { useAuth } from '../auth';
 
 export default function Navbar() {
+  const { role, logout } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>('#home'); // 当前高亮的导航项（scrollspy）
@@ -80,6 +82,21 @@ export default function Navbar() {
           })}
         </ul>
 
+        {/* 角色标识 + 退出（桌面端，登录后显示） */}
+        {role && (
+          <div className="hidden md:flex items-center gap-3">
+            <span className="text-xs px-3 py-1 rounded-full bg-ink/5 text-ink-soft font-medium">
+              {roleLabels[role]}视图
+            </span>
+            <button
+              onClick={logout}
+              className="text-sm text-ink-soft hover:text-accent transition"
+            >
+              退出
+            </button>
+          </div>
+        )}
+
         {/* 移动端汉堡按钮 */}
         <button
           className="md:hidden flex flex-col gap-1.5 p-2"
@@ -115,6 +132,20 @@ export default function Navbar() {
               </li>
             );
           })}
+          {role && (
+            <li className="flex items-center justify-between pt-2 border-t border-ink/10">
+              <span className="text-sm text-ink-soft">{roleLabels[role]}视图</span>
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  logout();
+                }}
+                className="text-sm text-ink-soft hover:text-accent transition"
+              >
+                退出
+              </button>
+            </li>
+          )}
         </ul>
       </div>
     </header>

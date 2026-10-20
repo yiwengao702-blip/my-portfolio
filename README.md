@@ -37,6 +37,8 @@ my-portfolio/
         ├── Experience.tsx    # 工作经历 · 职业履历（步骤 05）
         ├── Projects.tsx      # 项目展示（01–05 编号 + emoji 图标，步骤 06）
         ├── Contact.tsx       # 联系我（步骤 06）
+        ├── Login.tsx         # 多角色演示登录页（admin / recruiter / visitor）
+        ├── RoleZone.tsx      # 角色专属视图（按登录角色渲染不同内容，演示 RBAC）
         ├── Footer.tsx        # 页脚
         ├── ScrollProgress.tsx# 顶部滚动进度条（强化"推进感"）
         ├── BackToTop.tsx     # 回到顶部悬浮按钮
@@ -100,3 +102,19 @@ Vercel / Netlify / 对象存储 + CDN）即可。本仓库的「发布为应用�
 - **响应式**：移动端导航折叠为汉堡菜单，栅格自动降列。
 - **精致细节**：背景柔光晕染 + 极淡颗粒质感、卡片顶部高光、按钮悬停微抬升/点击回弹、进度条霓虹辉光、区块细分隔线、统一键盘聚焦描边。
 - **贵气动效**：大标题与页脚署名渐变流动（animate-gradient）、项目卡 hover 斜向扫光（sheen）。
+
+## 多角色演示登录
+
+作品集内置一个纯前端（无后端）的多角色演示登录，用于展示 RBAC 能力：
+
+- 打开站点先进入登录页，提供三种演示账号**一键体验**，也支持手动输入账号密码登录。
+- 登录态持久化到 `localStorage`，刷新后保持。
+
+| 角色 | 账号 | 密码 | 专属内容 |
+|------|------|------|----------|
+| 管理员 | `admin` | `admin123` | 内部运营视图：在线服务、部署次数、项目维护备注 |
+| 招聘方 | `recruiter` | `recruit123` | 招聘方专属：求职意向、期望城市、到岗时间、薪资期望、可提供的材料 |
+| 访客 | `guest` | `guest123` | 公开浏览，可一键切换为管理员 / 招聘方 |
+
+演示账号与角色定义在 `src/data.ts`（`demoAccounts` / `roleLabels`），登录逻辑在 `src/auth.tsx`，
+登录页 `src/components/Login.tsx`，角色专属内容 `src/components/RoleZone.tsx`。
