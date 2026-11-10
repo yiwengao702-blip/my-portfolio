@@ -80,7 +80,7 @@ export const techTags = [
 // 能力分层：回答"这些技术各自用在哪一层"，与技术标签云互补
 export const stackLayers = [
   { layer: '智能层', detail: 'RAG · Multi-Agent · Function Calling · MCP' },
-  { layer: '模型层', detail: 'vLLM · LoRA · Claude Code · Codex' },
+  { layer: '模型层', detail: 'LLM 大模型 · vLLM 推理 · LoRA 微调' },
   { layer: '服务层', detail: 'FastAPI · SSE 流式 · LangChain · LangGraph' },
   { layer: '数据层', detail: 'MySQL · Redis · Milvus 向量检索' },
   { layer: '前端层', detail: 'HTML · CSS · JavaScript · Java' },
