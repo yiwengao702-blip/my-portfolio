@@ -70,7 +70,7 @@ Vercel / Netlify / 对象存储 + CDN）即可。本仓库的「发布为应用�
 | `progression` | data.ts | 进阶之路四阶段文案 |
 | `skills` / `techTags` | data.ts | 技能百分比与标签 |
 | `timeline` | data.ts | 来路时间线（可换成真实履历年份） |
-| `experience` | data.ts | 工作经历（已填真实履历：樱之翼（上海）智能科技有限公司 · AI 开发工程师 · 2024.10—2026.09） |
+| `experience` | data.ts | 工作经历（已填真实履历：彧道实业(上海)有限公司 · AI 开发工程师 · 2024.10—2026.09） |
 | `projects[].link` | data.ts | 项目 GitHub 仓库（已接入真实仓库） |
 | `projects[].demo` | data.ts | 线上演示地址（**留空则不显示「进入演示」，避免死链**） |
 | `contact.email` / `phone` / `github` | data.ts | 联系方式（已填真实账号） |

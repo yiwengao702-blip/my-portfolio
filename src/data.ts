@@ -213,7 +213,7 @@ export const experience = [
   {
     period: '2024.10 — 2026.09',
     role: 'AI 开发工程师',
-    company: '樱之翼（上海）智能科技有限公司',
+    company: '彧道实业(上海)有限公司',
     desc: '负责企业级 AI 应用研发：RAG 知识库、NL2SQL 数据问数、智能体检索与电商运营平台；以 Python + FastAPI + LangGraph 搭建服务端与工作流，配合 React / Vue 完成前端界面与可视化。',
     tags: ['Python', 'FastAPI', 'LangGraph', 'RAG', 'React'],
   },
