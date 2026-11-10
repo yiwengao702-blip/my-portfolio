@@ -18,32 +18,28 @@ import ScrollProgress from './components/ScrollProgress';
 import BackToTop from './components/BackToTop';
 
 export default function App() {
-  // 带锚点直接打开（如别人分享的 http://站点/#projects）时，浏览器的原生 hash 滚动
-  // 发生在 React 挂载之前——那时目标区块还不存在，滚动落空，页面停在顶部。
+  // 进入页面一律从顶部开始，不还原任何锚点。
   //
-  // 只补一次 scrollIntoView 也不够：首屏图片是懒加载的，滚动那一刻文档还没被撑开，
-  // 算出来的目标位置是「图片加载前」的坐标（实测跳到 789px，而项目区实际在 4844px）。
-  // 所以这里用 ResizeObserver 盯着文档高度，只要还在变化就重新校正，3 秒后停止。
+  // 原来的写法是「地址栏有 hash 就 scrollIntoView 到对应区块」，本意是支持别人分享
+  // http://站点/#projects 这类深链。但导航用的是原生 <a href="#experience">，只要点过
+  // 一次「工作」，地址栏就永久留下 #experience，之后每次打开（或刷新）都会被这段逻辑
+  // 直接滚到工作区，首屏看到的不是 Hero，而是工作经历卡片。
+  // 加上浏览器自身的 scrollRestoration，两条路一起把页面拽走。
+  //
+  // 现在的策略：进入即清掉残留 hash 并回顶部；页内点导航仍走浏览器原生锚点滚动，不受影响。
   useEffect(() => {
-    const id = decodeURIComponent(window.location.hash.replace(/^#/, ''));
-    if (!id) return;
+    if (window.location.hash) {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
 
-    const fix = () => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
-    };
-
-    const raf = requestAnimationFrame(fix);
-    const observer = new ResizeObserver(fix);
-    observer.observe(document.body);
-    const stopAt = window.setTimeout(() => observer.disconnect(), 3000);
-
-    window.addEventListener('load', fix);
+    const toTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    toTop();
+    // 首屏图片懒加载会把文档二次撑开，load 之后位置可能又被推下去，补一次。
+    const raf = requestAnimationFrame(toTop);
+    window.addEventListener('load', toTop);
     return () => {
       cancelAnimationFrame(raf);
-      window.clearTimeout(stopAt);
-      observer.disconnect();
-      window.removeEventListener('load', fix);
+      window.removeEventListener('load', toTop);
     };
   }, []);
 
